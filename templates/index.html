@@ -13,15 +13,18 @@
 
         <nav class="navbar navbar-expand-lg bg-body-tertiary" style="margin: 10px 0px; border-radius: 10px;">
             <div class="container-fluid">
-              <a href="/"><h2>Quiz</h2></a>
+              <a href="/"><h1>Quiz</h1></a>
               <span class="navbar-text">
-                Best Score: {{ the_score }} ({{ the_user }})
+                <h3>Best Score: {{ the_score }} ({{ the_user }})</h3>
               </span>
             </div>
         </nav>
 
-        <div class="alert alert-dark" role="alert" style="margin: 20px 10px;">
-            Your Score: {{ your_score }}
+        <div class="alert alert-primary" style="margin: 20px 10px; height: 65px;">
+            <h3 style="float:left;">Your Score: {{ your_score }}</h3>
+            <form action="{{ url_for('clean_db') }}" method="POST">
+              <button class="btn btn-danger btn-sm" style="float:right;" type="submit">Reset Scores</button>
+            </form>
         </div>
 
         <div style="background-color: #fff; border-radius: 10px; padding: 40px; box-shadow: 0px 0px 2px #eaeaea; margin: 0px 10px; margin-bottom: 50px;">

@@ -49,7 +49,6 @@ def index():
     else:
         user2 = best_score[0][1]
         score2 = int(best_score[0][2])
-
         last_score = last_score[0][2]
 
     return render_template("index.html", the_score = score2, the_user = user2, your_score=last_score)
@@ -76,11 +75,22 @@ def save_score():
         if answer_4 == "Correct":
             score += 25
 
-
         # Veritabanına kaydetme
         conn = sqlite3.connect('score_table.db')
         cursor = conn.cursor()
         cursor.execute('INSERT INTO users (user, score) VALUES (?, ?)', (user, score))
+        conn.commit()
+
+    return redirect(url_for('index'))
+
+
+# Veritabanında ki tüm skorları sil
+@app.route('/clean_db', methods=["POST"])
+def clean_db():
+    if request.method == 'POST':
+        conn = sqlite3.connect('score_table.db')
+        cursor = conn.cursor()
+        cursor.execute('DELETE FROM users')
         conn.commit()
 
     return redirect(url_for('index'))
